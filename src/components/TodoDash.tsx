@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Calendar, Trash2 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
-import Auth from "./Auth";
+import Auth from "../app/signin/page";
 import Sidebar from "./SideBar";
 import { Todo } from "@/types/Todo";
 import { User } from "@supabase/supabase-js";
@@ -22,14 +22,25 @@ function TodoDash() {
   const [filter, setFilter] = useState("all");
   const [user, setUser] = useState<User | null>(null);
 
-
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
-  }
+    await supabase.auth.signOut();
+  };
 
   if (!user) {
-    return <Auth />
+    return <Auth />;
   }
+  function toggleTodo(id: string): void {
+    throw new Error("Function not implemented.");
+  }
+
+  function removeTodo(id: string): void {
+    throw new Error("Function not implemented.");
+  }
+
+  function addTodo(id: string): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar

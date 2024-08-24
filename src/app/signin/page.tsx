@@ -1,39 +1,49 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { useState } from 'react'
-import { Button } from './ui/button'
-import { Input } from './ui/input'
-import { Switch } from './ui/switch'
-import { Label } from './ui/label'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
+'use client'
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useState } from "react";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Switch } from "../../components/ui/switch";
+import { Label } from "../../components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
 
 export default function Auth() {
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isPasswordLogin, setIsPasswordLogin] = useState(false)
-  const [rememberMe, setRememberMe] = useState(false)
-  const supabase = createClientComponentClient()
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isPasswordLogin, setIsPasswordLogin] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+  const supabase = createClientComponentClient();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setLoading(true)
-    
+    e.preventDefault();
+    setLoading(true);
+
     if (isPasswordLogin) {
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
-      if (error) alert(error.message)
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) alert(error.message);
     } else {
-      const { error } = await supabase.auth.signInWithOtp({ 
+      const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
           emailRedirectTo: `${window.location.origin}/auth/callback`,
         },
-      })
-      if (error) alert(error.message)
-      else alert('Check your email for the login link!')
+      });
+      if (error) alert(error.message);
+      else alert("Check your email for the login link!");
     }
-    
-    setLoading(false)
-  }
+
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -41,7 +51,9 @@ export default function Auth() {
         <CardHeader>
           <CardTitle>Sign in</CardTitle>
           <CardDescription>
-            {isPasswordLogin ? 'Enter your credentials' : 'Enter your email to receive a one-time passcode.'}
+            {isPasswordLogin
+              ? "Enter your credentials"
+              : "Enter your email to receive a one-time passcode."}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -72,14 +84,16 @@ export default function Auth() {
                   checked={rememberMe}
                   onCheckedChange={setRememberMe}
                 />
-                <Label htmlFor="remember-me">
-                  Remember me for 30 days
-                </Label>
+                <Label htmlFor="remember-me">Remember me for 30 days</Label>
               </div>
             )}
 
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Loading...' : isPasswordLogin ? 'Sign in' : 'Send 4-digit code'}
+              {loading
+                ? "Loading..."
+                : isPasswordLogin
+                ? "Sign in"
+                : "Send magic link"}
             </Button>
           </form>
 
@@ -97,17 +111,19 @@ export default function Auth() {
             className="w-full"
             onClick={() => setIsPasswordLogin(!isPasswordLogin)}
           >
-            {isPasswordLogin ? 'Sign in with magic link' : 'Sign in with password'}
+            {isPasswordLogin
+              ? "Sign in with magic link"
+              : "Sign in with password"}
           </Button>
 
           <p className="mt-4 text-center text-sm">
-            Need an account?{' '}
-            <a href="#" className="underline">
+            Need an account?{" "}
+            <a href="/signup" className="underline">
               Sign up here
             </a>
           </p>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
