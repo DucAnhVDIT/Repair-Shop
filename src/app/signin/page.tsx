@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/ui/card";
+import { useRouter } from 'next/navigation';
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);
@@ -20,17 +21,23 @@ export default function Auth() {
   const [isPasswordLogin, setIsPasswordLogin] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const supabase = createClientComponentClient();
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    
 
     if (isPasswordLogin) {
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
-      if (error) alert(error.message);
+      if (error) {
+        alert(error.message);
+      } else {
+        router.push('/');
+      }
     } else {
       const { error } = await supabase.auth.signInWithOtp({
         email,

@@ -12,40 +12,38 @@ const Sidebar = ({
   onFilterChange: (filter: string) => void;
   onSignOut: () => void;
 }) => (
-  <div className="w-64 bg-white shadow-md">
-    <div className="p-4">
-      <Avatar className="w-20 h-20 mx-auto mb-4">
-        <AvatarImage src="/api/placeholder/150/150" alt="User" />
-        <AvatarFallback>{user?.email?.charAt(0).toUpperCase()}</AvatarFallback>
+    <div className="w-64 bg-gray-800 p-4">
+    <div className="mb-8">
+      <Avatar className="w-16 h-16 mx-auto mb-2">
+      <AvatarFallback>{user?.email?.[0]?.toUpperCase() ?? 'U'}</AvatarFallback>
       </Avatar>
-      <h2 className="text-xl font-bold text-center mb-2">{user?.email}</h2>
+      <p className="text-center text-sm">{user?.email}</p>
     </div>
-    <Separator />
-    <nav className="mt-4">
+    <nav className="space-y-2">
       <Button
         variant="ghost"
-        className="w-full justify-start"
+        className="w-full justify-start text-white hover:bg-gray-700"
         onClick={() => onFilterChange("all")}
       >
         All Tasks
       </Button>
       <Button
         variant="ghost"
-        className="w-full justify-start"
+        className="w-full justify-start text-white hover:bg-gray-700"
         onClick={() => onFilterChange("active")}
       >
         Active Tasks
       </Button>
       <Button
         variant="ghost"
-        className="w-full justify-start"
+        className="w-full justify-start text-white hover:bg-gray-700"
         onClick={() => onFilterChange("completed")}
       >
         Completed Tasks
       </Button>
       <Button
         variant="ghost"
-        className="w-full justify-start"
+        className="w-full justify-start text-white hover:bg-gray-700"
         onClick={onSignOut}
       >
         Sign Out
