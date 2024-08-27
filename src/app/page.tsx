@@ -1,9 +1,11 @@
 
+
 import { Suspense } from 'react'
+import AuthPage from './auth/page'
 
 
 export default function Home() {
   return (
-   <h1>Home</h1>
+   <AuthPage />
   )
 }
